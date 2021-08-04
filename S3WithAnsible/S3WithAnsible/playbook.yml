@@ -1,0 +1,10 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+  - name: create a s3 bucket
+    amazon.aws.s3_bucket:
+      name: tests3bucketmss
+      aws_access_key: "{{ my_access_key }}"
+      aws_secret_key: "{{ my_secret_key }}"
+      region: "{{ my_region }}"
+      state: present

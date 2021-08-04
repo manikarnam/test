@@ -1,0 +1,17 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Create dynamo table with hash and range primary key
+      community.aws.dynamodb_table:
+        aws_access_key: "{{ my_access_key }}"
+        aws_secret_key: "{{ my_secret_key }}"
+        name: sample-table
+        region: "{{ my_region }}"
+        hash_key_name: id
+        hash_key_type: STRING
+        range_key_name: create_time
+        range_key_type: NUMBER
+        read_capacity: 2
+        write_capacity: 2
+        tags:
+          tag_name: tag_value
