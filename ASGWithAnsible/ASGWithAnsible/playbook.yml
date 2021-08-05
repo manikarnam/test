@@ -1,0 +1,28 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+
+  - name: create launch config
+    community.aws.ec2_lc:
+      name: my_new_lc
+      aws_access_key: "{{ my_access_key }}"
+      aws_secret_key: "{{ my_secret_key }}"
+      image_id: ami-0e82959d4ed12de3f
+      key_name: Ansible
+      region: us-east-2
+      security_groups: sg-80f940ff
+      instance_type: t2.micro
+      assign_public_ip: yes
+
+  - community.aws.ec2_asg:
+      name: myasg
+      aws_access_key: "{{ my_access_key }}"
+      aws_secret_key: "{{ my_secret_key }}"
+      launch_config_name: my_new_lc
+      health_check_period: 60
+      health_check_type: ELB
+      replace_all_instances: yes
+      min_size: 5
+      max_size: 5
+      desired_capacity: 5
+      region: us-east-2
