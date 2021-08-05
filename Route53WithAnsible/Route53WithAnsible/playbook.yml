@@ -1,0 +1,14 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Add sample.com as an A record with 1 IP and wait until the changes have been replicated
+      route53:
+        state: present
+        aws_access_key: "{{ my_access_key }}"
+        aws_secret_key: "{{ my_secret_key }}"
+        zone: foo.com
+        record: new.foo.com
+        type: A
+        ttl: 7200
+        value: 3.139.4.80
+        wait: yes
